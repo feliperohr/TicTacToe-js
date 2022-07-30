@@ -1,0 +1,20 @@
+body {
+  font-family: cursive;
+  text-align: center;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.main-board {
+  background-color: royalblue;
+
+  /*grid-template-columns: repeat(3, auto);*/
+  width: 300px;
+  margin: 10px auto;
+   
+}
