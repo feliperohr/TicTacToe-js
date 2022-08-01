@@ -3,18 +3,19 @@ body {
   text-align: center;
 }
 
-.main {
+.main-board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  max-width: 960px;
-  margin: 0 auto;
+  max-width: 480px;
+  margin: 20px auto;
+  background-color: royalblue;
+  /*grid-template-columns: repeat(3, auto);*/
+  /* width: 300px;
+  margin: 10px auto; */
+   
 }
 
-.main-board {
-  background-color: royalblue;
-
-  /*grid-template-columns: repeat(3, auto);*/
-  width: 300px;
-  margin: 10px auto;
-   
+.cell {
+  padding: 20px;
+  border: 2px solid #fff;
 }
