@@ -1,21 +1,108 @@
-body {
-  font-family: cursive;
-  text-align: center;
+.flex {
+  display: flex;
 }
 
-.main-board {
+body {
+  font-family: cursive;
+  background-color: #e6fbff;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 65px;
+  color: #ff8b59;
+}
+
+button {
+  font-family: cursive;
+  border: 1px solid #ff8b59;
+  border-radius: 5px;
+  color: #d9f5fa;
+  background-color: #ff8b59;
+  font-size: 20px;
+}
+
+.main {
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.main-div-board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  max-width: 480px;
   margin: 20px auto;
-  background-color: royalblue;
-  /*grid-template-columns: repeat(3, auto);*/
-  /* width: 300px;
-  margin: 10px auto; */
-   
+  background-color: #18396e;
+  
 }
 
 .cell {
+  min-width: 60px;
+  min-height: 60px;
+  font-size: 40px;
+  color: #d9f5fa;
   padding: 20px;
-  border: 2px solid #fff;
+  border: 5px solid #ff8b59;
+  user-select: none;
+  cursor: pointer;
+  text-align: center;
 }
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  /*overflow: auto;  Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+.modal-content{
+  background-color: #e6fbff;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  padding: 15px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.modal-content > p {
+  font-size: 19px;
+  color: #ff8b59;
+}
+
+.modal-form {
+  color: #ff8b59;
+  font-size: 28px;
+  margin-bottom: 25px;
+  /*width: 100%;*/
+  gap: 60px;
+  /*justify-content: space-between;*/
+}
+
+input {
+  /*width: 80%;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
