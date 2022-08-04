@@ -7,11 +7,37 @@
 	<script src="app.js" defer></script>
 	<link rel="stylesheet" href="style.css">
 </head>
-<body>
-	<button id="newGameBtn">New Game</button>
+<body class="flex">
+	<header>
+		<h1>Tic Tac Toe</h1>
+	</header>
+	<main class="main flex">
+
+		<div class="modal" id="mainModal">
+			<div class="modal-content flex">
+				<p>
+					Choose players side:
+				</p>
+				<div class="modal-form flex">
+					<div>
+						<h3>Player: X</h3>
+						<input type="text" name="player1Name" placeholder="Player name...">
+					</div>
+					<div>
+						<h3>Player: O</h3>
+						<input type="text" name="player2Name" placeholder="Player name...">
+					</div>
+				</div>
+				
+				<button>Save</button>
+			
+			</div>
+			
+		</div>
+
+		<button id="newGameBtn">New Game</button>
 	
-	<main class="main container">
-		<div class="main-board" id="mainBoard"></div>
+		<div class="main-div-board" id="mainBoard"></div>
 	</main>
 </body>
 </html>
