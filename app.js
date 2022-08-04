@@ -8,10 +8,12 @@ const Player = (name) => {
 const mainBoard = document.querySelector('#mainBoard');
 const newGameBtn = document.querySelector('#newGameBtn');
 const cell = document.querySelectorAll('#cellId');
+const modal = document.querySelector('#mainModal')
 
 
 const gameBoard = (() => {
-	board = ['X', 'X', 'O', 'X', 'X', 'O', 'X', 'O', 'O'];
+	// board = ['X', 'X', 'O', 'X', 'X', 'O', 'X', 'O', 'O'];
+	board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
 
 	var playerSide = ['X', 'O'];
 
@@ -33,14 +35,14 @@ const gameBoard = (() => {
 
 const gameController = (() => {
 
-	var whoIsPlaying = 'null';
+	var whoIsPlaying = null;
 
-	const xPlayer = {
+	const playerOne = {
 		value: 'X',
 		player: null
 	}
 
-	const oPlayer = {
+	const playerTwo = {
 		value: 'O',
 		player: null
 	}
@@ -59,20 +61,20 @@ const gameController = (() => {
 	}
 
 	function getPLayers(){
-		return [ xPlayer, oPlayer ];
+		return [ playerOne, playerTwo ];
 	}
 
 	function setPlayers(p1, p2) {
-		xPlayer.player = p1
-		oPlayer.player = p2
+		playerOne.player = p1;
+		playerTwo.player = p2;
 	}
 
 	function getWhoIsPlaying(){
-		console.log(whoIsPlaying)
+		return whoIsPlaying;
 	}
 
-	function setWhoIsPlaying(){
-
+	function setWhoIsPlaying(player){
+		whoIsPlaying = player;
 	}
 
 	const start = () => {
@@ -86,12 +88,15 @@ const gameController = (() => {
 
 newGameBtn.addEventListener('click', function(){
 	gameController.start();
+	modal.style.display = "block";
+
 });
 
 mainBoard.addEventListener('click', function (e){
 	if (e.target.classList.contains('cell')) {
-		gameController.getWhoIsPlaying();
-      // console.log(e.target.innerHTML);
+		gameController.setPlayers(Player('felipe'),Player('gabi'));
+		gameController.setWhoIsPlaying(gameController.getPLayers()[0]);
+		e.target.innerHTML = gameController.getWhoIsPlaying().value;
     }
 });
 
