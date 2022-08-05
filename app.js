@@ -1,14 +1,14 @@
 
-const Player = (name) => {
-	return {name};
-};
+const Player = (name) => {name};
 
 
 //hmtl components
 const mainBoard = document.querySelector('#mainBoard');
 const newGameBtn = document.querySelector('#newGameBtn');
 const cell = document.querySelectorAll('#cellId');
-const modal = document.querySelector('#mainModal')
+const modal = document.querySelector('#mainModal');
+const modalContent = document.querySelector('#modalContent');
+
 
 
 const gameBoard = (() => {
@@ -17,17 +17,11 @@ const gameBoard = (() => {
 
 	var playerSide = ['X', 'O'];
 
-	function getCellValue(index) {
-		return board[index];
-	}
+	const getCellValue = (index) => board[index];
 
-	function setCellValue(index, value) {
-		board[index] = value;
-	}
+	const setCellValue = (index, value) => board[index] = value;
 
-	function getGameBoard(){
-		return board;
-	}
+	const getGameBoard = () => board;
 
 	return {getGameBoard, getCellValue, setCellValue};
 })();
@@ -48,48 +42,52 @@ const gameController = (() => {
 	}
 
 
-	function renderBoardValues() {
+	const renderBoardValues = () => {
 		mainBoard.innerHTML = '';
 
 		gameBoard.getGameBoard().forEach((item, index) => {
 			const cell = document.createElement('div')
 			cell.classList.add('cell');
+			cell.classList.add('flex');
 			cell.setAttribute('id', 'cellId'); 
 			cell.textContent = item;
 			mainBoard.appendChild(cell);
 		});
 	}
 
-	function getPLayers(){
-		return [ playerOne, playerTwo ];
-	}
+	const getPLayers = () => [ playerOne, playerTwo ];
 
-	function setPlayers(p1, p2) {
+	const setPlayers = (p1, p2) => {
 		playerOne.player = p1;
 		playerTwo.player = p2;
 	}
 
-	function getWhoIsPlaying(){
-		return whoIsPlaying;
-	}
+	const getWhoIsPlaying = () => whoIsPlaying;
+	
 
-	function setWhoIsPlaying(player){
-		whoIsPlaying = player;
-	}
+	const setWhoIsPlaying = (player) => whoIsPlaying = player;
 
 	const start = () => {
 		renderBoardValues();
-
 	};
 
 	return {start, setPlayers, getPLayers, setWhoIsPlaying, getWhoIsPlaying};
 })();
 
+const openPlayersModalWindow = () => {
+	modal.classList.add('active');
+	modalContent.classList.add('active');
+}
+
+const closePlayersModalWindow = () => {
+	modal.classList.remove('active');
+	modalContent.classList.remove('active');
+}
+
 
 newGameBtn.addEventListener('click', function(){
-	gameController.start();
-	modal.style.display = "block";
-
+	// gameController.start();
+	openPlayersModalWindow();
 });
 
 mainBoard.addEventListener('click', function (e){
@@ -99,6 +97,16 @@ mainBoard.addEventListener('click', function (e){
 		e.target.innerHTML = gameController.getWhoIsPlaying().value;
     }
 });
+
+
+window.addEventListener('keydown', function (e){
+	if (e.key === 'Escape') closePlayersModalWindow();
+});
+
+modal.addEventListener('click', (e) => {
+	closePlayersModalWindow();
+});
+
 
 
 
