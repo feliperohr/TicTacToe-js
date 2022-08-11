@@ -41,37 +41,61 @@ button {
   outline: none;
 }
 
+button.disable {
+  display: none;
+}
+
 .main {
   flex-direction: column;
   align-items: center;
 }
 
+.faded {
+  transition: opacity 1.5s ease-out;
+  opacity: 0;
+  overflow: hidden;
+}
 
 .main-div-board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 20px auto;
   background-color: #18396e;
-  
+
+  transition: opacity 1.5s ease-out;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.main-div-board.active{
+  opacity: 1;
 }
 
 .cell {
-  min-width: 100px;
-  min-height: 100px;
+  display: none;
+  
   font-size: 40px;
   color: #d9f5fa;
   border: 5px solid #ff8b59;
   user-select: none;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
 }
+
+.cell.active {
+  display: block;
+  /*align-items: center;
+  justify-content: center;*/
+  text-align: center;
+  padding: 20px 0px;
+  height: 100px;
+  width: 100px;
+  /*opacity: 1;*/
+  cursor: pointer;
+}
+
 
 .modal {
   display: none; 
   position: fixed; 
-  /*z-index: 1;*/
-  padding-top: 100px;
   left: 0;
   top: 0;
   width: 100%;
@@ -95,14 +119,17 @@ button {
   gap: 20px;
   padding: 20px;
   text-align: center;
+  border-radius: 10px;
   transform: translate(-50%, -50%) scale(0);
+  user-select: none;
+  transition: 0.3s ease-in-out;
 }
 
 .modal-content.active {
   transform: translate(-50%, -150%) scale(1);
 }
 
-.modal-content > p {
+.modal-content p {
   font-size: 19px;
   color: #ff8b59;
 }
@@ -112,6 +139,7 @@ button {
   font-size: 26px;
   gap: 60px;
 }
+
 
 input[type='text'],
 input[type='number'] {
