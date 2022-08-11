@@ -22,20 +22,30 @@
 			<div class="modal-form flex">
 				<div>
 					<h3>Player: X</h3>
-					<input type="text" name="player1Name" placeholder="Player name...">
+					<input id="playerOneName" type="text" name="player1Name" placeholder="Player name...">
 				</div>
 				<div>
 					<h3>Player: O</h3>
-					<input type="text" name="player2Name" placeholder="Player name...">
+					<input id="playerTwoName" type="text" name="player2Name" placeholder="Player name...">
 				</div>
 			</div>
 			
-			<button>Save</button>
+			<button id="modalButton" >Save</button>
 		</div>
 
 		<button id="newGameBtn">New Game</button>
 	
-		<div class="main-div-board" id="mainBoard"></div>
+		<div class="main-div-board" id="mainBoard">
+			<div class="cell" id="cellId" data-position="0"></div>
+			<div class="cell" id="cellId" data-position="1"></div>
+			<div class="cell" id="cellId" data-position="2"></div>
+			<div class="cell" id="cellId" data-position="3"></div>
+			<div class="cell" id="cellId" data-position="4"></div>
+			<div class="cell" id="cellId" data-position="5"></div>
+			<div class="cell" id="cellId" data-position="6"></div>
+			<div class="cell" id="cellId" data-position="7"></div>
+			<div class="cell" id="cellId" data-position="8"></div>
+		</div>
 	</main>
 </body>
 </html>
