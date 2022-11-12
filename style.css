@@ -41,9 +41,13 @@ button {
   outline: none;
 }
 
-button.disable {
+.disable {
   display: none;
 }
+
+/* button.disable {
+  
+} */
 
 .main {
   flex-direction: column;
@@ -76,7 +80,7 @@ button.disable {
   
   font-size: 40px;
   color: #d9f5fa;
-  border: 5px solid #ff8b59;
+  border: 5px solid #ff8957;
   user-select: none;
 }
 
@@ -90,6 +94,28 @@ button.disable {
   width: 100px;
   /*opacity: 1;*/
   cursor: pointer;
+}
+
+.players-board {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  gap: 100px;
+}
+
+.players-board-div{
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.players-board-div h2 {
+  color: #ff8957;
+  font-size: 28px;
+}
+
+.players-board-div p {
+  font-size: 25px;
+  color: #5ca1ae;
 }
 
 

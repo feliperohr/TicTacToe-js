@@ -1,19 +1,31 @@
 
-const Player = (name, playerSymbol) => {
+const Player = (name, playerValue) => {
 
-	return {name, playerSymbol};
+	return {name, playerValue};
 }
 
 
 //hmtl components
 const mainBoard = document.querySelector('#mainBoard');
-const newGameBtn = document.querySelector('#newGameBtn');
 const cell = document.querySelectorAll('#cellId');
+
+//default buttons
+const newGameBtn = document.querySelector('#newGameBtn');
+const endGameBtn = document.querySelector('#endGameBtn');
+
+//modals
 const modal = document.querySelector('#mainModal');
 const modalContent = document.querySelector('#modalContent');
+const saveNewPlayers = document.querySelector('#modalButton');
+
+//players
 const inputPlayerOne = document.querySelector('#playerOneName');
 const inputPlayerTwo = document.querySelector('#playerTwoName');
-const modalButton = document.querySelector('#modalButton');
+const playersBoardDisplay = document.querySelector('#playersBoardDisplay');
+const playerOneNameDisplay = document.querySelector('#playerOneNameDisplay');
+const playerTwoNameDisplay = document.querySelector('#playerTwoNameDisplay');
+
+
 
 
 const gameBoard = (() => {
@@ -33,7 +45,6 @@ const gameBoard = (() => {
 	var playerSide = ['X', 'O'];
 
 	const getCellValue = (index) => board[index];
-
 	const setCellValue = (index, value) => board[index] = value;
 
 	const getGameBoard = () => board;
@@ -45,9 +56,7 @@ const gameBoard = (() => {
 const gameController = (() => {
 
 	var whoIsPlaying = null;
-
 	var playerOne;
-
 	var playerTwo;
 
 	const renderBoardValues = () => {
@@ -67,6 +76,23 @@ const gameController = (() => {
 		});
 	}
 
+	const endBoard = () => {
+		mainBoard.classList.remove('active');
+
+		gameBoard.getGameBoard().forEach((item, index) => {
+			
+			cell[index].classList.remove('active');
+			cell[index].textContent = "";
+		});
+		
+	};
+
+	const renderPlayerBoardValues = () => {
+		playerOneNameDisplay.innerHTML = playerOne.name;
+		playerTwoNameDisplay.innerHTML = playerTwo.name;
+
+	};
+
 	const getPLayers = () => [ playerOne, playerTwo ];
 
 	const setPlayers = (p1, p2) => {
@@ -77,15 +103,67 @@ const gameController = (() => {
 	const getWhoIsPlaying = () => whoIsPlaying;
 	
 
-	const setWhoIsPlaying = (player) => this.whoIsPlaying = player;
+	const setWhoIsPlaying = (player) => whoIsPlaying = player;
 
-	const start = () => {
+	const startGame = () => {
+		renderPlayerBoardValues();
 		renderBoardValues();
 	};
 
-	return {start, setPlayers, getPLayers, setWhoIsPlaying, getWhoIsPlaying};
+	const endGame = () => {
+		endBoard();
+	};
+
+	return {startGame, endGame, setPlayers, getPLayers, setWhoIsPlaying, getWhoIsPlaying};
 })();
 
+
+newGameBtn.addEventListener('click', function(){
+	openPlayersModalWindow();
+});
+
+endGameBtn.addEventListener('click',(e) => {
+	gameController.endGame();
+	newGameBtn.classList.remove('disable');
+	endGameBtn.classList.add('disable');
+	playersBoardDisplay.classList.add('disable');
+});
+
+mainBoard.addEventListener('click', function (e){
+	if (e.target.classList.contains('cell')) {
+		gameController.setWhoIsPlaying(gameController.getPLayers()[0]);
+		e.target.innerHTML = gameController.getWhoIsPlaying().playerValue;
+    }
+});
+
+saveNewPlayers.addEventListener('click', () => {
+	let p1 = inputPlayerOne.value;
+	let p2 = inputPlayerTwo.value;
+	if( (p1.length === 0) || (p2.length === 0) || p1 === p2){
+		alert('Each Player need a not blank and unique name.')
+	} else{
+
+		gameController.setPlayers(Player(p1, 'X'), Player(p2, 'O'));
+		
+		closePlayersModalWindow();
+		inputPlayerOne.value = "";
+		inputPlayerTwo.value = "";
+
+		
+		//start game
+		gameController.startGame();
+
+		//disable button
+		newGameBtn.classList.add('disable');
+		//enable button
+		endGameBtn.classList.remove('disable');
+		//enable players gameboard
+		playersBoardDisplay.classList.remove('disable');
+
+	}
+})
+
+//modals
 const openPlayersModalWindow = () => {
 	modal.classList.add('active');
 	modalContent.classList.add('active');
@@ -96,34 +174,6 @@ const closePlayersModalWindow = () => {
 	modalContent.classList.remove('active');
 }
 
-newGameBtn.addEventListener('click', function(){
-	// gameController.start();
-	openPlayersModalWindow();
-});
-
-mainBoard.addEventListener('click', function (e){
-	if (e.target.classList.contains('cell')) {
-		// e.target.innerHTML = 'X'
-		// console.log(e.target.textContent);
-		// gameController.setWhoIsPlaying(gameController.getPLayers()[0]);
-		// e.target.innerHTML = gameController.getWhoIsPlaying().value;
-    }
-});
-
-modalButton.addEventListener('click', () => {
-	let p1 = inputPlayerOne.value;
-	let p2 = inputPlayerTwo.value;
-	if( (p1.length === 0 && p2.length === 0) || p1 === p2){
-		alert('Each Player need a not blank and unique name.')
-	} else{
-		gameController.setPlayers(Player(p1, 'X'), Player(p2, 'O'));
-		closePlayersModalWindow();
-		newGameBtn.classList.add('disable');
-		gameController.start();
-	}
-})
-
-
 window.addEventListener('keydown', function (e){
 	if (e.key === 'Escape') closePlayersModalWindow();
 });
@@ -131,6 +181,8 @@ window.addEventListener('keydown', function (e){
 modal.addEventListener('click', (e) => {
 	closePlayersModalWindow();
 });
+
+
 
 
 
