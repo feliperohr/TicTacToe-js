@@ -45,10 +45,6 @@ button {
   display: none;
 }
 
-/* button.disable {
-  
-} */
-
 .main {
   flex-direction: column;
   align-items: center;

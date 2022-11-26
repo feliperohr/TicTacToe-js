@@ -55,7 +55,7 @@ const gameBoard = (() => {
 
 const gameController = (() => {
 
-	var whoIsPlaying = null;
+	var whoIsPlaying;
 	var playerOne;
 	var playerTwo;
 
@@ -108,13 +108,27 @@ const gameController = (() => {
 	const startGame = () => {
 		renderPlayerBoardValues();
 		renderBoardValues();
+		setWhoIsPlaying(getPLayers()[0]);
 	};
 
 	const endGame = () => {
 		endBoard();
+		setWhoIsPlaying(null);
 	};
 
-	return {startGame, endGame, setPlayers, getPLayers, setWhoIsPlaying, getWhoIsPlaying};
+	const runGame = () => {
+		playerTurn();
+	}
+
+	const playerTurn = () => {
+		if(getWhoIsPlaying() === playerOne){
+			setWhoIsPlaying(playerTwo);
+			return;
+		}
+		setWhoIsPlaying(playerOne);
+	}
+
+	return {startGame, endGame, setPlayers, getPLayers, setWhoIsPlaying, getWhoIsPlaying, runGame};
 })();
 
 
@@ -131,25 +145,24 @@ endGameBtn.addEventListener('click',(e) => {
 
 mainBoard.addEventListener('click', function (e){
 	if (e.target.classList.contains('cell')) {
-		gameController.setWhoIsPlaying(gameController.getPLayers()[0]);
+		console.log(e.target.value);
 		e.target.innerHTML = gameController.getWhoIsPlaying().playerValue;
+
+		gameController.runGame();
     }
 });
 
 saveNewPlayers.addEventListener('click', () => {
-	let p1 = inputPlayerOne.value;
-	let p2 = inputPlayerTwo.value;
-	if( (p1.length === 0) || (p2.length === 0) || p1 === p2){
-		alert('Each Player need a not blank and unique name.')
-	} else{
+	//MOCK
+		mockP1 = Player('João', 'X');
+		mockP2 = Player('Maria', 'O');
 
-		gameController.setPlayers(Player(p1, 'X'), Player(p2, 'O'));
-		
+		gameController.setPlayers(mockP1, mockP2);
+
 		closePlayersModalWindow();
 		inputPlayerOne.value = "";
 		inputPlayerTwo.value = "";
 
-		
 		//start game
 		gameController.startGame();
 
@@ -160,7 +173,30 @@ saveNewPlayers.addEventListener('click', () => {
 		//enable players gameboard
 		playersBoardDisplay.classList.remove('disable');
 
-	}
+
+	// let p1 = inputPlayerOne.value;
+	// let p2 = inputPlayerTwo.value;
+	// if( (p1.length === 0) || (p2.length === 0) || p1 === p2){
+	// 	alert('Each Player need a not blank and unique name.')
+	// }else {
+
+	// 	gameController.setPlayers(Player(p1, 'X'), Player(p2, 'O'));
+
+	// 	closePlayersModalWindow();
+	// 	inputPlayerOne.value = "";
+	// 	inputPlayerTwo.value = "";
+
+	// 	//start game
+	// 	gameController.startGame();
+
+	// 	//disable button
+	// 	newGameBtn.classList.add('disable');
+	// 	//enable button
+	// 	endGameBtn.classList.remove('disable');
+	// 	//enable players gameboard
+	// 	playersBoardDisplay.classList.remove('disable');
+
+	// }
 })
 
 //modals
